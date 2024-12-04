@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Control.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%E6%8E%A7%E5%88%B6">控制</h1>
+<h2 id="%E6%BB%91%E6%A8%A1%E6%8E%A7%E5%88%B6">滑模控制</h2>
+<h3 id="lyapunov-%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%88%86%E6%9E%90">Lyapunov 稳定性分析</h3>
+<p><strong>平衡点</strong>: 系统状态不再变化的点。
+<strong>稳定</strong>: 平衡状态$x_e$受到扰动后仍然停留在$x_e$附近，则称$x_e$在李雅普诺夫意义下是稳定的（Lyapunov stable）。
+<strong>渐进稳定</strong>: 平衡状态$x_e$受到扰动后，最终都会收敛到$x_e$，则称$x_e$在李雅普诺夫意义下是渐进稳定的（Asymptotically stable）。
+<strong>大范围内渐进稳定的</strong>: 如果平衡状态$x_e$受到任何扰动后，最终都会收敛到$x_e$，我们就称$x_e$在李雅普诺夫意义下是大范围内渐进稳定的（Asymptotically stable in large）。</p>
+<h3 id="lyapunov-%E7%AC%AC%E4%BA%8C%E6%B3%95">Lyapunov 第二法</h3>
+<p>Lyapunov 第二法通过虚构一个包含状态向量$x$和时间$t$的能量函数来分析稳定性，记为$V(x,t)$或者$V(x)$。$V(x)$是一个标量函数，且考虑到能量总大于零，故$V(x)$为正定函数。能量衰减特性用$\dot{V}(x)$表示。当$V(x)$满足：</p>
+<p>$$
+V(x) = 0 \quad \text{if and only if} \quad  x = 0 \
+V(x) &gt; 0 \quad \text{if and only if} \quad  x \neq 0 \
+\dot{V}(x) = \frac{\rm d}{{\rm d}t}V(x) = \sum^{n}_{i=1}\frac{\partial V}{\partial x_i}f_i(x) \leq 0 \quad \text{when} \quad x \neq 0\
+$$</p>
+<p>则称系统在李雅普诺夫意义下是稳定的，特别的，若 $x \neq 0 $ 时，有 $\dot{V}(x) &lt; 0$，则系统是渐进稳定的。</p>
+<h3 id="%E6%BB%91%E6%A8%A1%E6%8E%A7%E5%88%B6">滑模控制</h3>
+<p>对于非线性系统$\dot{x} = f(x,u.t)$，其中 $\bf{x} \in \bf{R}^n$ ，$\bf{u} \in \bf{R}^m$， $\bf{t} \in \bf{R}$。在其状态空间中，有一超平面$s(x) = 0$, 两侧的点当接近超平面时都会趋于该区域运动，当在超平面上某一段区域全部点都为终止点时，该区域被称作滑动模态区，即滑模区。对于非线性系统$\dot{x} = f(x,u.t)$，滑模控制问题可被归结于两点：</p>
+<ol>
+<li>确定滑移面$s(x)$</li>
+<li>设计控制率 $u =
+\begin{cases}
+u^+(x) \qquad s&gt;0 \
+u^-(x) \qquad s&lt;0 \
+\end{cases}$</li>
+</ol>
+<p>滑模控制需要满足的两个条件：</p>
+<ol>
+<li>
+<p>保证滑膜运动存在
+状态变量能够从任意初始状态趋近滑移面 $s = 0$ 是滑模运动的一个非常关键的部分。与此同时，系统运动点在滑移面 $s = 0$ 两侧小幅度快频率的来回运动。使得滑动模态区滑模存在的表达式为：$\lim_{s\rightarrow 0}s\dot{s} &lt; 0$。</p>
+</li>
+<li>
+<p>滑模运动可达性
+可达性条件可叙述为除了滑模面上的任意运动点全部可在限定时间内到达滑模面 。根据李雅普洛夫(Lyapunov)稳定性理论，可达性表达式为：$$
+\begin{cases}
+V(x) = \frac{1}{2}s^2 \
+\dot{V}(x) = s\dot{s} &lt; 0\
+\end{cases}$$</p>
+</li>
+</ol>
+<h3 id="%E6%BB%91%E6%A8%A1%E9%9D%A2%E8%AE%BE%E8%AE%A1">滑模面设计</h3>
+<ol>
+<li>
+<p>线性滑移面
+$$s = x_1 + \beta x_2 = 0 \qquad 0&lt;\beta$$
+线性滑模系统状态变量不断趋近于给定值，但是与给定值存在较大误差。状态变量靠近切换面后以指数函数速度收敛至 0。如若状态变量与平衡位置距离较大时，收敛速度比较快，反之当其与平衡位置距离较小时，收敛速度相对较慢。</p>
+</li>
+<li>
+<p>Terminal滑模面
+$$ s = x_2 + \beta x_1^{q/p} = 0 \qquad \beta&gt;0, p &gt; q &gt; 0$$
+式中，p 和 q 都为正奇数。系统状态变量趋近滑模面 $s = 0$ 时，能够通过限定的时间收敛为0。</p>
+</li>
+</ol>
+<p>3.非奇异Terminal滑模面
+$$s = x_1 + \frac{1}{\beta}x_2^{q/p} \qquad z&lt;p/q&lt;2,0&lt;\beta$$
+式中，p 和 q 都为奇数且为正值。此滑模面解决了终端滑模奇异性的缺点，而且拥有良好的收敛性能，能够在有限时间内收敛至给定位置。但是在接近滑模面时的速度仍会较慢。</p>
+<p>4.快速Terminal滑模面
+$$s = x_2 +cx_1 + \beta x_1^{q/p} \qquad \qquad z&lt;p/q&lt;2,0&lt;\beta,0&lt;c$$
+式中，p和q都为正奇数。如若状态变量与平衡位置距离较大时，收敛速度比较快，此时可视为线性滑动模态。如若其与平衡位置距离较小时，此时可视为终端滑模，因此具有终端滑模的特征。总而言之，该滑动模态式包含了上述滑模面的优点，从而使得整个系统具有全局快速收敛性。</p>
+<p>5.积分滑模面
+$$
+s = k_px + k_i \int^t_0x \rm d t = 0 \qquad0&lt;k_p,0&lt;k_i
+$$
+滑模控制在趋近运动过程中时，线性系统对不确定因素不具备鲁棒性，因此引入积分器来抑制稳态误差。该方法增强了系统鲁棒性却以牺牲滑模系统的降阶功能为代价。</p>
+<h3 id="%E9%AB%98%E9%98%B6%E6%BB%91%E6%A8%A1%E6%8E%A7%E5%88%B6%E7%8E%87">高阶滑模控制率</h3>
+<p>$$
+\dot{u} =
+\begin{cases}
+-u \qquad |u| &gt; 1\
+-V_msign(\sigma) \qquad \sigma \cdot \dot\sigma \leq 0, |u|\leq 1 \
+-V_Msign(\sigma) \qquad \sigma \cdot \dot\sigma &gt; 0, |u|\leq 1 \
+\end{cases}
+$$
+其中$\sigma$为滑模量。</p>
+<h3 id="%E5%89%8A%E5%BC%B1%E6%BB%91%E6%A8%A1%E6%8E%A7%E5%88%B6%E6%8A%96%E6%8C%AF">削弱滑模控制抖振</h3>
+<ol>
+<li>
+<p>单位矢量控制法
+该方法选择非线性函数$v_{\sigma}(s)$替换控制量中的符号函数$sign(s)$。其表达式如下所示：
+$$v_{\sigma}(s) = \frac{s}{|s|+\sigma}, \sigma &gt; 0$$
+该方法为高增益反馈，如若状态变量与滑模面$s= 0$距离比较大时，参数$\sigma$可以迅速的使状态变量到达滑模面。</p>
+</li>
+<li>
+<p>边界层法
+边界层法在所有抑制抖振的策略中是相对比较容易实现的。该方法控制系统状态变量的运行轨迹为期望的某个区域，一般把这个区域作为滑模面的设定边界层即$\delta$，其既能取值为常数，又能进行自适应调节。选择饱和函数$sat(\frac{s}{\delta})$代替控制量中的符号函数$sign(s)$ ，$sat(\frac{s}{\delta})$的表达式如下所示：</p>
+</li>
+</ol>
+<p>$$
+sat(\frac{s}{\delta}) =
+\begin{cases}
+1 \qquad s&gt; \delta\
+\frac{1}{\delta} \qquad |s|&lt;\delta\
+-1 \qquad s&lt; - \delta \
+\end{cases}
+$$
+如若状态变量不在边界层内部，其运行轨迹无异于普通滑模；如若状态变量运行至边界层内部，来回切换运动能够在边界层上实现，而不需要在滑模面上实现。此方法能够抑制系统固有抖振，达到了不连续控制连续化的目的，却以控制性能为代价</p>
+<ol start="3">
+<li>趋近律法
+通过改变趋近律参数值以抑制系统抖振。迄今为止，通常采用指数趋近律法，即 $\dot{s} = -\varepsilon sign(s) - \lambda \quad 0&lt;\varepsilon, 0&lt;\lambda $ ，参数$\varepsilon$
+表示到达滑模面的趋近速度，如若状态变量距离滑模面相对较远时，通过减小$\varepsilon$和增大$\lambda$能够实现系统快速响应及削弱抖振。</li>
+</ol>
+<h2 id="%E5%8F%8D%E6%BC%94%E6%8E%A7%E5%88%B6">反演控制</h2>
+<p>反步法的本质也是利用李雅普诺夫第二法对系统控制器进行状态反馈设计。通过对系统的每一个状态方程依次进行迭代设计，最终串联成一个控制方案。</p>
+<p>考虑一个$n$阶单输入单输出系统：
+$$
+\begin{cases}
+x_1^{\prime} = x_2 + f_1(x_1) \
+x_2^{\prime} = x_3 + f_2(x_1,x_2) \
+\quad \cdots \
+x_n^{\prime} = u + f_n(x_1,x_2,\cdots,x_n) \
+\end{cases}
+$$
+对每个$x_n^{\prime}$，可以将式中的$x_{n+1}$看作一个虚拟输入。设目标值为$x_d$，误差为$e_i$，$\alpha <em>i$为状态变量$x</em>{i+1}$的目标值（虚拟控制项），可以推导出误差向量组：
+$$
+\begin{cases}
+e_1 = x_1 - x_d\
+e_2 = x_2 - \alpha_1 \
+\cdots \
+e_n = x_n = \alpha_{n-1}\
+\end{cases}
+$$
+由数学归纳法可知
+$$
+u = \alpha_n = -e_{n-1} - e_n - f_n(x_1,x_2,\cdots,x_{n-1}) - \alpha_{n-1}^{\prime}
+$$</p>
+<h2 id="%E8%87%AA%E9%80%82%E5%BA%94%E6%8E%A7%E5%88%B6">自适应控制</h2>
+<h3 id="%E8%87%AA%E6%A0%A1%E6%AD%A3%E6%8E%A7%E5%88%B6%E5%99%A8stc">自校正控制器（STC）</h3>
+<p>STC可以看作参数估计器+控制器，下图为STC的结构：</p>
+<div align="center"> 
+<img src="C:/Users/18311/Desktop/毕设/遥控机器人/笔记/STC_Structure.png" height = 150 /> 
+</div>
+参数估计器可利用如下方法构成：递推最小二乘法（RLS）、快速仿射投影算法（FAP）、最小均方误差（MSE）、卡尔曼滤波（KF）、扩展卡尔曼滤波（EKF）。
+可以构成STC的常见控制器：比例积分微分控制器（PID）、滑模控制（SMC）、模糊控制、神经网络、遗传算法、预测控制（PC）、二次型最优控制（LQR）、时间延迟控制（TDC）、基于不确定扰动估计器（UDE）的控制器。
+<h3 id="%E6%A8%A1%E5%9E%8B%E5%8F%82%E8%80%83%E8%87%AA%E9%80%82%E5%BA%94%E6%8E%A7%E5%88%B6mrac">模型参考自适应控制（MRAC）</h3>
+<p>MRAC可以看作是 参考模型+控制器+自适应率，下图为MRAC的结构：</p>
+<div align="center">
+<img src="C:/Users/18311/Desktop/毕设/遥控机器人/笔记/MRAC_Structure.png" height = 200 />
+</div>
+<h4 id="%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%BE%E8%AE%A1">参考模型的设计</h4>
+<p>假设被控对象的状态方程和输出方程如下所示：
+$$
+\begin{cases}
+\dot{x}(t) = Ax(t) + Bu(t)\
+y(t) = x(t)\
+\tag{1}
+\end{cases}
+$$</p>
+<p>参考模型的状态方程和输出方程可构造为如下所示：
+$$
+\begin{cases}
+\dot{x}_m(t) = A_mx_m(t) + B_mc(t)\
+y_m(t) = x_m(t)\
+\tag{2}
+\end{cases}
+$$</p>
+<h4 id="%E6%8E%A7%E5%88%B6%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1">控制器的设计</h4>
+<p>将公式 1 与 公式 2 相减：
+$$
+\dot{e}(t) = A_mx_m(t) + B_mc(t) - Ax(t) - Bu(t) \
+\Downarrow \text{化简} \tag{3} \
+\dot{e}(t) = A_me(t) + [A_mx(t) + B_mc(t) - Ax(t) - Bu(t)] \
+$$
+如果误差$e$为零,系统需要满足矩阵$A_m$特征根大小为负且令下式控制器输出$u(t)$满足如下：
+$$
+u(t) = ac(t) + bx(t)
+\tag{4}
+$$</p>
+<h4 id="%E8%87%AA%E9%80%82%E5%BA%94%E5%BE%8B%E7%9A%84%E8%AE%BE%E8%AE%A1">自适应律的设计</h4>
+<p>由于控制器$u(t)$中的参数$a$、$b$未知，便有了自适应率的出现。自适应率的设计目的就是为了在线辨识出控制器中的这两个未知参数。</p>
+<ol>
+<li>梯度法</li>
+</ol>
+<p>假设MRAC控制器中含有一个未知可调节的参数$\theta$，定义参考模型和被控对象的状态变量偏差如下：$e = x_m -x$。目标是通过调节参数$\theta$来令偏差$e$最小,这里引入一个损失函数$J = \frac{1}{2}e^2$.如果令$e \rightarrow 0$，则$J \rightarrow 0$。也就是需要求得$J$的最小值。因此沿着$J$
+的负梯度方向变化参数$\theta$：
+$$
+\begin{cases}
+\Delta\theta = -\kappa \frac{\partial J}{\partial \theta} = -\kappa e\frac{\partial e}{\partial \theta}\
+\dot{\theta} = -\gamma \frac{\partial J}{\partial \theta} = -\gamma e\frac{\partial e}{\partial \theta}\
+\tag{5}
+\end{cases}
+$$
+其中，$\Delta\theta$为两个步长的差值，$\kappa$为学习步长,$\gamma$为调整速率。
+利用公式1,公式4重写到状态变量偏差$e$，并引入积分算子$p$：
+$$
+e(t) = x_m(t)- \frac{Ba}{p - A -Bb}c(t)
+\tag{6}
+$$</p>
+<p>将公式5,公式6带入到公式4中，可得到：
+$$
+\begin{cases}
+\dot{a}(t) = \gamma e(t)\frac{B}{p - A - Bb}c(t) \
+\dot{b}(t) = -\gamma e(t)\frac{B}{p - A - Bb}x(t) \
+\tag{7}
+\end{cases}
+$$
+$$\Downarrow \text{化简}\$$
+$$
+\begin{cases}
+\dot{a}(t) = \gamma e(t)\frac{B}{p + A_m}c(t) \
+\dot{b}(t) = -\gamma e(t)\frac{B}{p + A_m}x(t) \
+\tag{8}
+\end{cases}
+$$</p>
+<ol start="2">
+<li>稳定性理论分析法</li>
+</ol>
+<p>参考模型和被控对象的状态变量偏差的变化率可以表示为如下所示：
+$$
+\dot{e} = \dot{x}_m(t) - \dot{x}(t) \
+\Downarrow \text{带入公式1、2、4}\
+\dot{e}(t) = A-me(t) + [(A_m - A -Bb)x(t) + (B_m - ba)c(t)]
+\tag{9}
+$$
+当矩阵$A_m$特征根为负且下式成立时，误差将收敛为零：
+$$
+e_1 = A_m - A - Bb = 0 \
+e_2 = B_m - B_a = 0
+$$
+如果需要系统稳定，需要同时满足$e$、$e_1$、$e_2$都收敛为零,因此构建标量函数$V(e,e_1,e_2)$:
+$$
+\begin{align*}
+V &amp;= \frac{1}{2}[e^2 + \frac{1}{B\gamma}(A_m - A - Bb)^2 + \frac{1}{B\gamma}(B_m - B_a)^2]\
+&amp;= \frac{1}{2}(e^2 + \frac{1}{B \gamma}e_1^2 + \frac{1}{B \gamma}e_2^2)\
+\dot{V} &amp;= e\frac{\rm d e}{\rm d t} + \frac{1}{B\gamma}e_1\frac{\rm d e_1}{\rm d t} + \frac{1}{B\gamma}e_2\frac{\rm d e_2}{\rm d t}\
+&amp;=A_me^2(t)+ \frac{e_1}{\gamma}[\gamma e(t)x(t) - \frac{db(t)}{dt}] + \frac{e_2}{\gamma}[\gamma e(t)c(t - \frac{da(t)}{dt})]
+\end{align*}
+$$
+因为$A_me^2(t)&lt;0$，为使$\dot{V}(e,e_1,e_2)&lt;0$，则可得到下式：
+$$
+\frac{db(t)}{dt} = \gamma e(t)x(t) \
+\qquad\
+\frac{da(t)}{st} = \gamma e(t)c(t)\
+$$</p>
+<h2 id="h-infty-%E6%8E%A7%E5%88%B6">H $\infty$ 控制</h2>
+<p>H$\infty$控制是专门针对一类不确定性系统的控制方法，用来削弱外部扰动带来的影响，本质也是状态反馈，通过设计一个状态反馈矩阵K使闭环系统稳定的同时，让外部干扰对系统期望输出影响最小。
+<img src="C:/Users/18311/Desktop/毕设/遥控机器人/笔记/Hinfinity.png" alt="Hinfinity" title="Hinfinity">
+$$
+\begin{cases}
+\dot{x} = Ax + (B_1 &amp; B_2)\begin{pmatrix}
+w \
+u \
+\end{pmatrix}\
+\begin{pmatrix}
+z \
+y\
+\end{pmatrix}
+=
+\begin{pmatrix}
+C_1 \
+C_2 \
+\end{pmatrix} x +
+\begin{pmatrix}
+D_{11} &amp; D_{12} \
+D_{21} &amp; D_{22}\
+\end{pmatrix}
+\begin{pmatrix}
+w \
+u \
+\end{pmatrix}\
+\end{cases}
+$$</p>
+<h3 id="%E7%8A%B6%E6%80%81%E5%8F%8D%E9%A6%88hinfty%E6%8E%A7%E5%88%B6">状态反馈H$\infty$控制</h3>
+<p>当系统的状态变量可以获得时，常采用状态反馈H$\infty$控制。
+状态反馈控制分为标准状态反馈H$\infty$控制、次优状态反馈H$\infty$控制、最优状态反馈H$\infty$控制三种，本质是求解LMI不等式矩阵得到的控制矩阵K。下面是三种状态反馈H$\infty$控制的LMI不等式矩阵：</p>
+<h4 id="%E6%A0%87%E5%87%86%E7%8A%B6%E6%80%81%E5%8F%8D%E9%A6%88hinfty%E6%8E%A7%E5%88%B6">标准状态反馈H$\infty$控制</h4>
+<p>$$
+\left[
+\begin{matrix}
+AX + B_2W + (AX + B_2W)^T &amp; B_1 &amp; (C_1X + D_{12}W)^T\
+B_1^T &amp; -I &amp; D_{11}^T \
+C_1X+D_{12}W &amp; D_{11} &amp; -I\
+\end{matrix}
+\right] &lt;0
+$$</p>
+<h4 id="%E6%AC%A1%E4%BC%98%E7%8A%B6%E6%80%81%E5%8F%8D%E9%A6%88hinfty%E6%8E%A7%E5%88%B6">次优状态反馈H$\infty$控制</h4>
+<p>$$
+\left[
+\begin{matrix}
+AX + B_2W + (AX + B_2W)^T &amp; B_1 &amp; (C_1X + D_{12}W)^T\
+B_1^T &amp; -I &amp; D_{11}^T \
+C_1X+D_{12}W &amp; D_{11} &amp; -\gamma^2I\
+\end{matrix}
+\right] &lt;0
+$$</p>
+<h4 id="%E6%9C%80%E4%BC%98%E7%8A%B6%E6%80%81%E5%8F%8D%E9%A6%88hinfty%E6%8E%A7%E5%88%B6">最优状态反馈H$\infty$控制</h4>
+<p>$$
+\left[
+\begin{matrix}
+AX + B_2W + (AX + B_2W)^T &amp; B_1 &amp; (C_1X + D_{12}W)^T\
+B_1^T &amp; -I &amp; D_{11}^T \
+C_1X+D_{12}W &amp; D_{11} &amp; -\rho^2I\
+\end{matrix}
+\right] &lt;0
+$$</p>
+<h3 id="%E8%BE%93%E5%87%BA%E5%8F%8D%E9%A6%88hinfty%E6%8E%A7%E5%88%B6">输出反馈H$\infty$控制</h3>
+<p>当系统的状态变量不可获得时，可采用输出反馈H$\infty$控制。此时输出反馈的LMI不等式矩阵中包含了未知的控制器参数，所以无法直接定义LMI矩阵，需要使用消元法和变量替代法消去：</p>
+<p>$$
+\left[
+\begin{matrix}
+N_0 &amp; 0\
+0 &amp; I \
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+A^TX + XA &amp; XB_1 &amp; C_1^T\
+B_1X &amp; -\gamma I &amp; D_{11}^T \
+C_1 &amp; D_{11} &amp; -\gamma I \
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+N_0 &amp; 0\
+0 &amp; I \
+\end{matrix}
+\right] &lt; 0\
+$$
+$$
+\left[
+\begin{matrix}
+N_c &amp; 0\
+0 &amp; I \
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+AY + YA^T &amp; YC_1^T &amp; B_1\
+C_1Y &amp; -\gamma I &amp; D_{11} \
+B_1^T &amp; D_{11}^T &amp; -\gamma I \
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+N_c &amp; 0\
+0 &amp; I \
+\end{matrix}
+\right] &lt; 0\
+$$
+$$
+\left[
+\begin{matrix}
+X &amp; I\
+I &amp; Y\
+\end{matrix}
+\right] \geq 0\
+$$</p>
+
+</body>
+</html>
