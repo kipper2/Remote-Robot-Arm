@@ -73,14 +73,14 @@ sys(4)=Q_dot_dot(1);
 sys(5)=Q_dot_dot(2);
 sys(6)=Q_dot_dot(3);
 
-sys(7)= 0;
-sys(8)= 0;
-sys(9)= 0;
-sys(10)= 0;
+sys(7)  = 0;
+sys(8)  = 0;
+sys(9)  = 0;
+sys(10) = 0;
 sys(11) = 0;
 sys(12) = 0;
 sys(13) = 0;
-sys(14)= 0;
+sys(14) = 0;
 sys(15) = 0;
 sys(16) = 0;
 
